@@ -1,0 +1,109 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "mysql"
+}
+
+model TradeHistory {
+  id        String            @id @default(uuid())
+  method    TransactionStatus
+  amount    Int
+  createdAt DateTime          @default(now()) @db.Timestamp(0)
+  userId    String
+  id_user   User              @relation(fields: [userId], references: [id])
+
+  @@index([userId], map: "transaction_userId_fkey")
+}
+
+model CurrentStock {
+  id           String @id @default(uuid())
+  userId       String
+  stockName    String
+  currentStock Int
+  avgPrice     Int
+  user         User   @relation(fields: [userId], references: [id])
+}
+
+model OrderHistory {
+  id          String       @id
+  orderNo     Int          @unique(map: "Order_orderNo_key")
+  userId      String
+  method      Order_method
+  status      Status_order
+  amountStock Int
+  priceStock  Int
+  createdAt   DateTime     @default(now()) @db.Timestamp(0)
+  stockId     String
+  stock       Stock        @relation(fields: [stockId], references: [id], map: "Order_stockId_fkey")
+  user        User         @relation(fields: [userId], references: [id], map: "Order_userId_fkey")
+
+  @@index([stockId], map: "Order_stockId_fkey")
+  @@index([userId], map: "Order_userId_fkey")
+}
+
+model Stock {
+  id        String         @id
+  stockName String         @unique(map: "Stock_stockName_key")
+  order     OrderHistory[]
+}
+
+model User {
+  id            String           @id
+  firstName     String
+  lastName      String
+  email         String           @unique(map: "User_email_key")
+  mobile        String           @unique(map: "User_mobile_key")
+  password      String
+  createdAt     DateTime         @default(now()) @db.Timestamp(0)
+  order         OrderHistory[]
+  transactions  TradeHistory[]
+  wallet        PaymentHistory[]
+  currentStocks CurrentStock[]
+}
+
+model PaymentHistory {
+  id         String         @id
+  amount     Int
+  createdAt  DateTime       @default(now()) @db.Timestamp(0)
+  updateAt   DateTime       @default(now()) @db.Timestamp(0)
+  bookbackId Int
+  bankName   BankNameStatus
+  cumTotal   Int
+  userId     String
+  user       User           @relation(fields: [userId], references: [id], map: "Wallet_userId_fkey")
+
+  @@index([userId], map: "Wallet_userId_fkey")
+}
+
+enum TransactionStatus {
+  DEPOSITION
+  WITHDRAW
+}
+
+enum BankNameStatus {
+  SCB
+  KBANK
+  KTB
+  BBL
+  TTB
+}
+
+enum Order_method {
+  BUY
+  SELL
+}
+
+enum Status_order {
+  PENDING
+  MATCHED
+  CANCELLED
+  REJECTED
+}

@@ -1,10 +1,10 @@
 @Base_url=http://localhost:8801/api
 
-###
+### GET /auth/me
 GET {{Base_url}}/auth/me
 
-###
-GET {{Base_url}}/auth/me
+### POST /auth/login
+POST {{Base_url}}/auth/login
 
 ###
 POST {{Base_url}}/auth/login HTTP/1.1
