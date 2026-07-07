@@ -22,3 +22,17 @@ Content-Type: application/json
 {
     "message": "sample"
 }
+
+### Register api POST/auth/register
+POST {{Base_url}}/auth/register HTTP/1.1
+Content-Type: application/json
+
+{
+    "email": "ammy@mail.com",
+    "password":"123456",
+    "confirmPassword":"123456",
+    "firstName":"ammy",
+    "lastName":"codecamp",
+    "mobile":"0812345678"
+}
+ 
