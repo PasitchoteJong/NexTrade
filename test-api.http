@@ -1,27 +1,10 @@
 @Base_url=http://localhost:8801/api
 
-### GET /auth/me
+### test_GET /auth/me
 GET {{Base_url}}/auth/me
 
-### POST /auth/login
+### test_POST /auth/login
 POST {{Base_url}}/auth/login
-
-###
-POST {{Base_url}}/auth/login HTTP/1.1
-Content-Type: application/json
-
-{
-    "identity" : "andy@mail.com",
-    "password" : "123457"
-}
-
-### 
-POST {{Base_url}}/post HTTP/1.1
-Content-Type: application/json
-
-{
-    "message": "sample"
-}
 
 
 ### Register api POST/auth/register
@@ -29,10 +12,19 @@ POST {{Base_url}}/auth/register
 Content-Type: application/json
 
 {
-    "email": "ammy3@mail.com",
+    "email": "ammy4@mail.com",
     "password": "Ab123456",
     "confirmPassword": "Ab123456",
     "firstName": "ammy",
     "lastName": "codecamp",
-    "mobile": "0812345671"
+    "mobile": "0812345672"
+}
+
+### Login api POST/auth/login
+POST {{Base_url}}/auth/login
+Content-Type: application/json
+
+{
+    "email": "ammy1@mail.com",
+    "password": "Ab123456"
 }

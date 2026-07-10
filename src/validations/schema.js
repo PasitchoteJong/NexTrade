@@ -27,13 +27,25 @@ export const registerSchema = z.object({
 }).refine(data => data.password === data.confirmPassword, {
     message: " confirm password not match password",
     path: ['confirmPassword']
-}).transform(async data=>{
+}).transform(async data => {
     const output = {
         email: data.email,
         firstName: data.firstName,
         lastName: data.lastName,
         mobile: data.mobile,
-        password: await bcrypt.hash(data.password,8)
+        password: await bcrypt.hash(data.password, 8)
     }
     return output
 })
+
+export const loginSchema = z.object({
+    email: z.string()
+        .min(2, "email require")
+        .email("Must be valid email"),
+    password: z.string()
+        .min(8, "password at least 8 characters")
+}).transform(data=>({
+    email: data.email,
+    password: data.password
+})
+)
