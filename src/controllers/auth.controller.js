@@ -3,7 +3,7 @@ import { prisma } from "../lib/prisma.js";
 import { loginSchema, registerSchema } from "../validations/schema.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken"
-import { createUser, getUserByEmail } from "../services/user.service.js";
+import { createUser, getUserBy } from "../services/user.service.js";
 
 export async function register(req, res, next) {
     //const { firstName, lastName, email, mobile, password, confirmPassword } = req.body
@@ -17,7 +17,7 @@ export async function register(req, res, next) {
     //     return next(createHttpError[400]('check confirm-password'))
     // }
 
-    const haveUser = await getUserByEmail(data.email)
+    const haveUser = await getUserBy('email', data.email)
 
     if (haveUser) {
         return next(createHttpError[409]('email is already registered.'))
@@ -40,7 +40,7 @@ export async function register(req, res, next) {
 export async function login(req, res, next) {
     const data = loginSchema.parse(req.body)
 
-    const foundUser = await getUserByEmail(data.email)
+    const foundUser = await getUserBy('email', data.email)
     if (!foundUser) {
         return next(createHttpError[401]('Invalid login 1'))
     }
@@ -54,14 +54,14 @@ export async function login(req, res, next) {
         expiresIn: '1h'
     })
 
-    const {password,createdAt, updateAt, ...userData} = foundUser
+    const { password, createdAt, updateAt, ...userData } = foundUser
     res.json({
-        message:'Login Successful',
+        message: 'Login Successful',
         token: token,
         user: userData
     })
 }
 
 export function getMe(req, res) {
-    res.send('Get me Controller')
+    res.json({ user: req.user })
 }

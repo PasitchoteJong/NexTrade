@@ -1,8 +1,8 @@
 import { prisma } from "../lib/prisma.js";
 
-export const getUserByEmail = (value)=>{
+export const getUserBy = (column,value)=>{
     return prisma.user.findUnique({
-        where: { email: value}
+        where: { [column]: value}
     })
 }
 

@@ -12,12 +12,12 @@ POST {{Base_url}}/auth/register
 Content-Type: application/json
 
 {
-    "email": "ammy4@mail.com",
+    "email": "ammy5@mail.com",
     "password": "Ab123456",
     "confirmPassword": "Ab123456",
     "firstName": "ammy",
     "lastName": "codecamp",
-    "mobile": "0812345672"
+    "mobile": "0812345673"
 }
 
 ### Login api POST/auth/login
@@ -28,3 +28,9 @@ Content-Type: application/json
     "email": "ammy1@mail.com",
     "password": "Ab123456"
 }
+
+### test_GetMe api GET/auth/me
+GET {{Base_url}}/auth/me
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjMzNTQzMTA4LTM5YTQtNGM3Ny05MWI0LWE0N2M0M2I0OTVkOCIsImlhdCI6MTc4MzY4MTY3MywiZXhwIjoxNzgzNjg1MjczfQ.wsy9vAWYhAPjmix7cmcqn8kCwjy0a35Pj-a4at9vcsE
+
+###
