@@ -12,7 +12,7 @@ Content-Type: application/json
 
 {
     "identity" : "andy@mail.com",
-    "password" : "123456"
+    "password" : "123457"
 }
 
 ### 
@@ -23,16 +23,16 @@ Content-Type: application/json
     "message": "sample"
 }
 
+
 ### Register api POST/auth/register
-POST {{Base_url}}/auth/register HTTP/1.1
+POST {{Base_url}}/auth/register
 Content-Type: application/json
 
 {
-    "email": "ammy@mail.com",
-    "password":"123456",
-    "confirmPassword":"123456",
-    "firstName":"ammy",
-    "lastName":"codecamp",
-    "mobile":"0812345678"
+    "email": "ammy3@mail.com",
+    "password": "Ab123456",
+    "confirmPassword": "Ab123456",
+    "firstName": "ammy",
+    "lastName": "codecamp",
+    "mobile": "0812345671"
 }
- 
