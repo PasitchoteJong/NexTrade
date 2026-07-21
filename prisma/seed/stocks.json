@@ -1,0 +1,122 @@
+[
+  {
+    "id": "09393bc3-3d3d-4089-a581-b2e761210e5a",
+    "symbol": "MSFT",
+    "companyName": "Microsoft Corp",
+    "exchange": "NASDAQ NMS - GLOBAL MARKET",
+    "currency": "USD",
+    "logo": "https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/MSFT.png",
+    "industry": "Technology",
+    "isActive": true,
+    "createdAt": "2026-07-20T11:59:10.503Z",
+    "updatedAt": "2026-07-20T11:59:10.503Z"
+  },
+  {
+    "id": "12d7e23d-778b-4b19-aae0-775e96216f6f",
+    "symbol": "GOOGL",
+    "companyName": "Alphabet Inc",
+    "exchange": "NASDAQ NMS - GLOBAL MARKET",
+    "currency": "USD",
+    "logo": "https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/GOOG.png",
+    "industry": "Media",
+    "isActive": true,
+    "createdAt": "2026-07-20T11:59:11.887Z",
+    "updatedAt": "2026-07-20T11:59:11.887Z"
+  },
+  {
+    "id": "22f71602-d984-4455-8391-ee83e7497b47",
+    "symbol": "V",
+    "companyName": "Visa Inc",
+    "exchange": "NEW YORK STOCK EXCHANGE, INC.",
+    "currency": "USD",
+    "logo": "https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/V.png",
+    "industry": "Financial Services",
+    "isActive": true,
+    "createdAt": "2026-07-20T11:59:13.266Z",
+    "updatedAt": "2026-07-20T11:59:13.266Z"
+  },
+  {
+    "id": "5a881729-e91e-4bde-8ab6-d3d46dde7dca",
+    "symbol": "AMZN",
+    "companyName": "Amazon.com Inc",
+    "exchange": "NASDAQ NMS - GLOBAL MARKET",
+    "currency": "USD",
+    "logo": "https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/AMZN.png",
+    "industry": "Retail",
+    "isActive": true,
+    "createdAt": "2026-07-20T11:59:11.527Z",
+    "updatedAt": "2026-07-20T11:59:11.527Z"
+  },
+  {
+    "id": "5ee531be-34f0-47d2-86b0-646ba6b5fc49",
+    "symbol": "META",
+    "companyName": "Meta Platforms Inc",
+    "exchange": "NASDAQ NMS - GLOBAL MARKET",
+    "currency": "USD",
+    "logo": "https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/FB.png",
+    "industry": "Media",
+    "isActive": true,
+    "createdAt": "2026-07-20T11:59:12.250Z",
+    "updatedAt": "2026-07-20T11:59:12.250Z"
+  },
+  {
+    "id": "6a6ad65f-f38f-4d76-a044-61cddfdf581b",
+    "symbol": "TSLA",
+    "companyName": "Tesla Inc",
+    "exchange": "NASDAQ NMS - GLOBAL MARKET",
+    "currency": "USD",
+    "logo": "https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/TSLA.png",
+    "industry": "Automobiles",
+    "isActive": true,
+    "createdAt": "2026-07-20T11:59:11.170Z",
+    "updatedAt": "2026-07-20T11:59:11.170Z"
+  },
+  {
+    "id": "9fbb1f5b-faee-4bcf-825c-205218a95db3",
+    "symbol": "AAPL",
+    "companyName": "Apple Inc",
+    "exchange": "NASDAQ NMS - GLOBAL MARKET",
+    "currency": "USD",
+    "logo": "https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/AAPL.png",
+    "industry": "Technology",
+    "isActive": true,
+    "createdAt": "2026-07-20T11:33:13.515Z",
+    "updatedAt": "2026-07-20T11:59:10.155Z"
+  },
+  {
+    "id": "a29794ba-165b-412a-abd6-2831a51e765b",
+    "symbol": "NVDA",
+    "companyName": "NVIDIA Corp",
+    "exchange": "NASDAQ NMS - GLOBAL MARKET",
+    "currency": "USD",
+    "logo": "https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/NVDA.png",
+    "industry": "Semiconductors",
+    "isActive": true,
+    "createdAt": "2026-07-20T11:59:10.821Z",
+    "updatedAt": "2026-07-20T11:59:10.821Z"
+  },
+  {
+    "id": "b9c28eb1-1677-43ff-807d-c16f13c94df4",
+    "symbol": "NFLX",
+    "companyName": "Netflix Inc",
+    "exchange": "NASDAQ NMS - GLOBAL MARKET",
+    "currency": "USD",
+    "logo": "https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/NFLX.png",
+    "industry": "Media",
+    "isActive": true,
+    "createdAt": "2026-07-20T11:59:12.582Z",
+    "updatedAt": "2026-07-20T11:59:12.582Z"
+  },
+  {
+    "id": "dd47b37f-7a35-4286-ace3-c513230e3e82",
+    "symbol": "AMD",
+    "companyName": "Advanced Micro Devices Inc",
+    "exchange": "NASDAQ NMS - GLOBAL MARKET",
+    "currency": "USD",
+    "logo": "https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/AMD.png",
+    "industry": "Semiconductors",
+    "isActive": true,
+    "createdAt": "2026-07-20T11:59:12.916Z",
+    "updatedAt": "2026-07-20T11:59:12.916Z"
+  }
+]

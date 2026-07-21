@@ -7,6 +7,8 @@ dotenv.config()
 
 const PORT = process.env.PORT || 8000;
 
+// console.log(process.env.FINNHUB_KEY);
+
 process.on('SIGINT',()=>shutdown('SIGINT')); //Ctrl+C
 process.on('SIGTERM',()=>shutdown('SIGTERM')); //kill command or Docker
 

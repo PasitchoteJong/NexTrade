@@ -1,36 +1,136 @@
 @Base_url=http://localhost:8801/api
+@token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjExMGEwYjU5LWEwZGMtNGM0NS1hOWFkLTRkNWQ4MGYxNWNjZCIsImlhdCI6MTc4NDYwMTAyNiwiZXhwIjoxNzg0Njg3NDI2fQ.RTtqq8O6PJ1xDbhAi8SjxnZGLyXyzNmXvb67SR2Zlb4
+@walletId=091358ca-93ad-4805-b2eb-b8ea2c2d888b
+@stockId=12d7e23d-778b-4b19-aae0-775e96216f6f
+
 
 ### test_GET /auth/me
 GET {{Base_url}}/auth/me
+
 
 ### test_POST /auth/login
 POST {{Base_url}}/auth/login
 
 
-### Register api POST/auth/register
+### Register POST/auth/register
 POST {{Base_url}}/auth/register
 Content-Type: application/json
 
 {
-    "email": "ammy5@mail.com",
+    "email": "ammy@mail.com",
     "password": "Ab123456",
     "confirmPassword": "Ab123456",
     "firstName": "ammy",
     "lastName": "codecamp",
-    "mobile": "0812345673"
+    "mobile": "0812345670"
 }
 
-### Login api POST/auth/login
+
+### Login POST/auth/login
 POST {{Base_url}}/auth/login
 Content-Type: application/json
 
 {
-    "email": "ammy1@mail.com",
+    "email": "ammy@mail.com",
     "password": "Ab123456"
 }
 
-### test_GetMe api GET/auth/me
-GET {{Base_url}}/auth/me
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjMzNTQzMTA4LTM5YTQtNGM3Ny05MWI0LWE0N2M0M2I0OTVkOCIsImlhdCI6MTc4MzY4MTY3MywiZXhwIjoxNzgzNjg1MjczfQ.wsy9vAWYhAPjmix7cmcqn8kCwjy0a35Pj-a4at9vcsE
 
-###
+### GetMe GET/auth/me
+GET {{Base_url}}/auth/me
+Authorization: Bearer {{token}}
+
+
+########################################################
+### wallet
+### Created wallet POST/wallet/walletCrete
+POST {{Base_url}}/wallet/walletCreate
+Authorization: Bearer {{token}}
+
+
+### deposit wallet POST/wallet/deposit
+POST {{Base_url}}/wallet/deposit
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+    "amount": 1500,
+    "bookbankId":"1234567891",
+    "bankName":"KBANK"
+}
+
+
+### withdraw wallet POST/wallet/withdraw
+POST {{Base_url}}/wallet/withdraw
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+    "amount": 1000,
+    "bookbankId":"1234567891",
+    "bankName":"KBANK"
+}
+
+
+### GET wallet GET/wallet/walletbyid/:id
+GET {{Base_url}}/wallet/walletbyid/{{walletId}}
+Authorization: Bearer {{token}}
+
+
+#########################################################
+### Stock
+### post create stock POST/stock/stockcreate
+POST {{Base_url}}/stock/stockcreate
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+    "symbol": "CPALL",
+    "companyName":"CP",
+    "exchange":"set50",
+    "currency":"baht",
+    "logo":"",
+    "inductry":""
+}
+
+
+### Get stocks GEt/stock/stocks
+Get {{Base_url}}/stock/stocks
+Authorization: Bearer {{token}}
+
+
+### Get stocksBySymbol GET/stock/stocks/:symbol
+GET {{Base_url}}/stock/stocks/GOOGL
+Authorization: Bearer {{token}}
+
+
+### GET search stock    GET/stock/stocks?search=Alphabet
+GET {{Base_url}}/stock/stocks?search=Alphabet
+Authorization: Bearer {{token}}
+
+
+### PATCH Stock        PATCH/stock/stocks/:id
+PATCH {{Base_url}}/stock/stocks/{{stockId}}
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+    "companyName":"Alphabet Inc",
+    "exchange":"NASDAQ",
+    "currency":"USD",
+    "logo":"",
+    "industry":""
+}
+
+
+### PATCH updateStockStatus      PATCH/stock/stocks/:id/status
+PATCH {{Base_url}}/stock/stocks/{{stockId}}/status
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+    "isActive":true
+}
+
+### GET stock from finnhub     GET/stock/stocks/test
+GET {{Base_url}}/stock/stocks/import

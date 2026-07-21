@@ -51,7 +51,7 @@ export async function login(req, res, next) {
     const payload = { id: foundUser.id }
     const token = jwt.sign(payload, process.env.JWT_SECRET, {
         algorithm: 'HS256',
-        expiresIn: '1h'
+        expiresIn: '1d'
     })
 
     const { password, createdAt, updateAt, ...userData } = foundUser
