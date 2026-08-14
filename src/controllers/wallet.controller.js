@@ -40,7 +40,7 @@ export async function walletDeposit(req, res, next) {
     // console.log('This havewallet in controller', haveWallet)
 
     if (!haveWallet) {
-        return next(createHttpError[400]('You dont have wallet, Please create wallet'))
+        return next(createHttpError(400,'You dont have wallet, Please create wallet'))
     }
 
     // const deposit_min = 1000;

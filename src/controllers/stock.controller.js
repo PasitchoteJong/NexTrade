@@ -17,7 +17,7 @@ import {
   updateStockStatusById
 } from "../services/stock.service.js";
 import { symbol } from "zod";
-import { getStockProfile } from "../provider/stock.provider.js";
+import { getStockProfile } from "../provider/finnhub/stock.provider.js";
 import { mapFinnhubStock } from "../mappers/stock.mapper.js";
 
 

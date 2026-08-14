@@ -1,8 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Get a free hosted Postgres database in seconds: `npx create-db`
-
 generator client {
   provider = "prisma-client-js"
   output   = "../src/generated/prisma"
@@ -12,78 +7,61 @@ datasource db {
   provider = "mysql"
 }
 
-model User {
-  id            String         @id @default(uuid())
-  firstName     String
-  lastName      String
-  email         String         @unique(map: "User_email_key")
-  mobile        String         @unique(map: "User_mobile_key")
-  password      String
-  createdAt     DateTime       @default(now()) @db.Timestamp(0)
-  order         OrderHistory[]
-  transactions  TradeHistory[]
-  currentStocks CurrentStock[]
-  wallet        Wallet?
+model Transaction {
+  id         String          @id @default(uuid())
+  userId     String
+  stockId    String
+  type       TransactionType
+  quantity   Int
+  price      Decimal         @db.Decimal(15, 4)
+  totalPrice Decimal         @db.Decimal(15, 2)
+  createdAt  DateTime        @default(now())
+
+  user  user  @relation(fields: [userId], references: [id])
+  stock stock @relation(fields: [stockId], references: [id])
+
+  @@index([userId])
+  @@index([stockId])
+  @@index([userId, createdAt])
 }
 
-model Wallet {
-  id      String  @id @default(uuid())
-  userId  String  @unique
-  balance Decimal @default(0) @db.Decimal(15, 2)
-  user    User    @relation(fields: [userId], references: [id])
-
-  walletHistories WalletHistory[]
+enum TransactionType {
+  BUY
+  SELL
 }
 
-model WalletHistory {
-  id         String         @id @default(uuid())
-  walletId   String
-  amount     Decimal        @db.Decimal(15, 2)
-  bookbankId String
-  bankName   BankNameStatus
-  createdAt  DateTime       @default(now()) @db.Timestamp(0)
+model holdingstock {
+  id       String  @id @default(uuid())
+  userId   String
+  quantity Int
+  avgPrice Decimal @db.Decimal(15, 2)
+  user     user    @relation(fields: [userId], references: [id])
+  stock    stock   @relation(fields: [stockId], references: [id])
+  stockId  String
 
-  wallet Wallet @relation(fields: [walletId], references: [id])
+  @@unique([userId, stockId])
+  @@index([userId], map: "holdingstock_userId_fkey")
 }
 
-model TradeHistory {
-  id        String            @id @default(uuid())
-  method    TransactionStatus
-  amount    Int
-  createdAt DateTime          @default(now()) @db.Timestamp(0)
-  userId    String
-  id_user   User              @relation(fields: [userId], references: [id])
+model orderhistory {
+  id         String              @id @default(uuid())
+  orderNo    Int                 @unique(map: "Order_orderNo_key")
+  userId     String
+  method     orderhistory_method
+  status     orderhistory_status
+  quantity   Int
+  priceStock Decimal             @db.Decimal(15, 2)
+  createdAt  DateTime            @default(now()) @db.Timestamp(0)
+  stockId    String
 
-  @@index([userId], map: "transaction_userId_fkey")
-}
-
-model CurrentStock {
-  id           String @id @default(uuid())
-  userId       String
-  stockName    String
-  currentStock Int
-  avgPrice     Int
-  user         User   @relation(fields: [userId], references: [id])
-}
-
-model OrderHistory {
-  id          String       @id @default(uuid())
-  orderNo     Int          @unique(map: "Order_orderNo_key")
-  userId      String
-  method      Order_method
-  status      Status_order
-  amountStock Int
-  priceStock  Int
-  createdAt   DateTime     @default(now()) @db.Timestamp(0)
-  stockId     String
-  stock       Stock        @relation(fields: [stockId], references: [id], map: "Order_stockId_fkey")
-  user        User         @relation(fields: [userId], references: [id], map: "Order_userId_fkey")
+  user  user  @relation(fields: [userId], references: [id])
+  stock stock @relation(fields: [stockId], references: [id])
 
   @@index([stockId], map: "Order_stockId_fkey")
   @@index([userId], map: "Order_userId_fkey")
 }
 
-model Stock {
+model stock {
   id             String         @id @default(uuid())
   symbol         String         @unique(map: "Stock_stockName_key")
   companyName    String
@@ -93,31 +71,86 @@ model Stock {
   industry       String?
   isActive       Boolean        @default(true)
   createdAt      DateTime       @default(now())
-  updatedAt      DateTime       @updatedAt
-  orderHistories OrderHistory[]
+  updatedAt      DateTime       @default(now())
+  candles        stockcandle[]
+  orderhistories orderhistory[]
+  holdings       holdingstock[]
+  transactions   Transaction[]
 }
 
-enum TransactionStatus {
+model stockcandle {
+  id        String   @id @default(uuid())
+  symbol    String
+  open      Decimal  @db.Decimal(15, 2)
+  high      Decimal  @db.Decimal(15, 2)
+  low       Decimal  @db.Decimal(15, 2)
+  close     Decimal  @db.Decimal(15, 2)
+  volume    Int?
+  timestamp DateTime
+  createdAt DateTime @default(now())
+  stock     stock    @relation(fields: [symbol], references: [symbol])
+
+  @@unique([symbol, timestamp])
+  @@index([symbol, timestamp])
+}
+
+model user {
+  id        String   @id @default(uuid())
+  firstName String
+  lastName  String
+  email     String   @unique(map: "User_email_key")
+  mobile    String   @unique(map: "User_mobile_key")
+  password  String
+  createdAt DateTime @default(now()) @db.Timestamp(0)
+
+  wallet       wallet?
+  portfolio    holdingstock[]
+  orders       orderhistory[]
+  transactions Transaction[]
+}
+
+model wallet {
+  id      String          @id @default(uuid())
+  userId  String          @unique(map: "Wallet_userId_key")
+  balance Decimal         @default(0.00) @db.Decimal(15, 2)
+  user    user            @relation(fields: [userId], references: [id])
+  history wallethistory[]
+}
+
+model wallethistory {
+  id         String                 @id @default(uuid())
+  walletId   String
+  amount     Decimal                @db.Decimal(15, 2)
+  bookbankId String
+  bankName   wallethistory_bankName
+  createdAt  DateTime               @default(now()) @db.Timestamp(0)
+
+  wallet wallet @relation(fields: [walletId], references: [id])
+
+  @@index([walletId], map: "WalletHistory_walletId_fkey")
+}
+
+enum tradehistory_method {
   DEPOSITION
   WITHDRAW
 }
 
-enum BankNameStatus {
+enum orderhistory_method {
+  BUY
+  SELL
+}
+
+enum orderhistory_status {
+  PENDING
+  MATCHED
+  CANCELLED
+  REJECTED
+}
+
+enum wallethistory_bankName {
   SCB
   KBANK
   KTB
   BBL
   TTB
-}
-
-enum Order_method {
-  BUY
-  SELL
-}
-
-enum Status_order {
-  PENDING
-  MATCHED
-  CANCELLED
-  REJECTED
 }

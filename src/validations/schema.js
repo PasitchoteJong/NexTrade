@@ -126,7 +126,7 @@ export const stockUpdateSchema = z.object({
         .transform(value => value.toUpperCase()),
     currency: z.string()
         .trim()
-        .min(1,"Currency is required"),
+        .min(1, "Currency is required"),
     logo: z.string()
         .trim()
         .optional(),
@@ -138,3 +138,19 @@ export const stockUpdateSchema = z.object({
 export const updateStockStatusSchema = z.object({
     isActive: z.boolean()
 });
+
+export const symbolSchema = z.object({
+    symbol: z.string()
+        .trim()
+        .min(1, "Symbol is required")
+})
+
+export const tradeSchema = z.object({
+    symbol: z.string()
+        .trim()
+        .min(1, "Symbol is required")
+        .max(10, 'Symbol cannot have many character')
+        .transform(value => value.toUpperCase()),
+    quantity: z.number()
+        .min(1,"Quantity is required")
+})

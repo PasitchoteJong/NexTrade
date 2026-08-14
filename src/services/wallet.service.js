@@ -33,7 +33,7 @@ export async function createDepositTransition(walletId, depositData) {
       }
     });
 
-    const history = await tx.walletHistory.create({
+    const history = await tx.wallethistory.create({
       data: {
         amount: amount,
         bookbankId: bookbankId,
@@ -57,7 +57,7 @@ export async function createWithdrawTransition(walletId, withdrawData) {
       }
     });
 
-    const history = await tx.walletHistory.create({
+    const history = await tx.wallethistory.create({
       data: {
         amount: -Number(amount),
         bookbankId: bookbankId,

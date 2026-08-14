@@ -1,7 +1,7 @@
 @Base_url=http://localhost:8801/api
-@token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjExMGEwYjU5LWEwZGMtNGM0NS1hOWFkLTRkNWQ4MGYxNWNjZCIsImlhdCI6MTc4NDYwMTAyNiwiZXhwIjoxNzg0Njg3NDI2fQ.RTtqq8O6PJ1xDbhAi8SjxnZGLyXyzNmXvb67SR2Zlb4
-@walletId=091358ca-93ad-4805-b2eb-b8ea2c2d888b
-@stockId=12d7e23d-778b-4b19-aae0-775e96216f6f
+@token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQyYTA0YTJiLTJiM2MtNDA2ZS04NDBkLWJhNmI1YTQ3YjIxMyIsImlhdCI6MTc4NjYxNTEyNiwiZXhwIjoxNzg2NzAxNTI2fQ.OTXe-CVQWUdr8TRp8c1eRgwXqjig3lRnOidwbBAoXmk
+@walletId=eb500d8d-25bd-499b-a5a3-815050901e6c
+@stockId=9fddcf01-5928-48af-a3a6-065980ed3ba4
 
 
 ### test_GET /auth/me
@@ -54,7 +54,7 @@ Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
-    "amount": 1500,
+    "amount": 150000,
     "bookbankId":"1234567891",
     "bankName":"KBANK"
 }
@@ -85,12 +85,12 @@ Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
-    "symbol": "CPALL",
-    "companyName":"CP",
-    "exchange":"set50",
-    "currency":"baht",
-    "logo":"",
-    "inductry":""
+    "symbol": "AAPL",
+    "companyName":"Apple INC",
+    "exchange":"NASDAQ NMS - GLOBAL MARKET",
+    "currency":"USD",
+    "logo":"https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/AAPL.png",
+    "inductry":"Technology"
 }
 
 
@@ -134,3 +134,57 @@ Content-Type: application/json
 
 ### GET stock from finnhub     GET/stock/stocks/test
 GET {{Base_url}}/stock/stocks/import
+Authorization: Bearer {{token}}
+
+
+#########################################################
+
+### market
+### Get market from finnhub     GET/market/quote
+GET {{Base_url}}/market/quote/AAPL
+Authorization: Bearer {{token}}
+
+
+
+
+### GET testcandle from alpha_vantage      GET/candle/importhistorical/AAPL
+GET {{Base_url}}/candle/importhistorical/AAPL
+Authorization: Bearer {{token}}
+
+
+###GET candle from  database   GET candle/getcandle/AAPL
+GET {{Base_url}}/candle/getcandle/AAPL
+Authorization: Bearer {{token}}
+
+
+#########################################################
+
+### Trade 
+
+### POST trade buy stock     POST/trade/buy
+POST {{Base_url}}/trade/buy
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+    "symbol":"AAPL",
+    "quantity":100
+}
+
+### POST trade sell stock     POST/trade/sell
+POST {{Base_url}}/trade/sell
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+    "symbol":"AAPL",
+    "quantity":100
+}
+
+### GET  trade portfolio        GET/trade/portfolio
+GET {{Base_url}}/trade/portfolio
+Authorization: Bearer {{token}}
+
+### GET portfolio stock
+GET {{Base_url}}/trade/portfolio
+Authorization: Bearer {{token}}
