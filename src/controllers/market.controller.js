@@ -3,17 +3,21 @@ import { mapQuote } from "../mappers/market.mapper.js"
 
 
 export async function quote(req, res, next) {
-    // console.log('Check Quote')
-    const { symbol } = req.params;
-    // console.log(symbol);
+    try {
+        // console.log('Check Quote')
+        const { symbol } = req.params;
+        // console.log(symbol);
 
-    const data = await getQuote(symbol);
-    const result = mapQuote(symbol, data);
+        const data = await getQuote(symbol);
+        const result = mapQuote(symbol, data);
 
 
-    res.json({
-        message: "Get data success",
-        data: result
+        res.json({
+            message: "Get data success",
+            data: result
 
-    })
+        });
+    } catch (error) {
+        next(error);
+    }
 }

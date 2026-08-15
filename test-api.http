@@ -1,11 +1,11 @@
 @Base_url=http://localhost:8801/api
-@token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQyYTA0YTJiLTJiM2MtNDA2ZS04NDBkLWJhNmI1YTQ3YjIxMyIsImlhdCI6MTc4NjYxNTEyNiwiZXhwIjoxNzg2NzAxNTI2fQ.OTXe-CVQWUdr8TRp8c1eRgwXqjig3lRnOidwbBAoXmk
+@token=e5yJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjNkYTA1ZWVjLTI1ZWEtNGQ0NC05ZmQ1LTQ1ODkxYzc2ZGI5MSIsImlhdCI6MTc4Njc5MTE0MCwiZXhwIjoxNzg2ODc3NTQwfQ.iOVL75hvREt3XsZqo1r7BXMtOPYotFV_f1OxzcyzQv0
 @walletId=eb500d8d-25bd-499b-a5a3-815050901e6c
 @stockId=9fddcf01-5928-48af-a3a6-065980ed3ba4
 
 
-### test_GET /auth/me
-GET {{Base_url}}/auth/me
+# ### test_GET /auth/me
+# GET {{Base_url}}/auth/me
 
 
 ### test_POST /auth/login
@@ -17,12 +17,12 @@ POST {{Base_url}}/auth/register
 Content-Type: application/json
 
 {
-    "email": "ammy@mail.com",
+    "email": "ammy7@mail.com",
     "password": "Ab123456",
-    "confirmPassword": "Ab123456",
+    "confirmPassword": "Ab1234567",
     "firstName": "ammy",
     "lastName": "codecamp",
-    "mobile": "0812345670"
+    "mobile": "0812345679"
 }
 
 
@@ -186,5 +186,11 @@ GET {{Base_url}}/trade/portfolio
 Authorization: Bearer {{token}}
 
 ### GET portfolio stock
-GET {{Base_url}}/trade/portfolio
+GET {{Base_url}}/trade/portfolio/port
+Authorization: Bearer {{token}}
+
+
+#########################################################
+
+GET {{Base_url}}/transaction/port
 Authorization: Bearer {{token}}

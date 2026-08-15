@@ -7,6 +7,7 @@ import marketRoute from './routes/market.routes.js'
 import errorMiddleware from './middleware/error.middleware.js';
 import candleRoute from './routes/candle.routes.js';
 import tradeRoute from './routes/trade.routes.js';
+import transacntionRoutes from './routes/transaction.routes.js';
 
 
 
@@ -19,6 +20,7 @@ app.use('/api/stock', stockRoute)
 app.use('/api/market', marketRoute)
 app.use('/api/candle', candleRoute)
 app.use('/api/trade', tradeRoute)
+app.use('/api/transaction', transacntionRoutes)
 //app.use('/api/comment', (req, res) => { res.send('comment service') })
 //app.use('/api/like', (req, res) => { res.send('like service') })
 

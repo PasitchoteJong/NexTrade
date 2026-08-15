@@ -1,6 +1,8 @@
 import { prisma } from "../lib/prisma.js";
 import { Prisma } from "@prisma/client";
 import createHttpError from "http-errors";
+import { getQuote } from "../provider/finnhub/market.provider.js";
+import { mapQuote } from "../mappers/market.mapper.js";
 
 
 export async function buyStockService(userId, stockId, quantity, price) {
@@ -186,13 +188,43 @@ export async function getPortfolioService(userId) {
         symbol: 'asc'
       }
     }
-  })
-  return portfolio.map(item => ({
-    symbol: item.stock.symbol,
-    companyName: item.stock.companyName,
-    logo: item.stock.logo,
-    currency: item.stock.currency,
-    quantity: item.stock.quantity,
-    avgPrice: item.avgPrice
-  }));
+  });
+
+  const result = [];
+
+  for (const item of portfolio) {
+
+    const rawQuote = await getQuote(item.stock.symbol);
+    const quote = await mapQuote(item.stock.symbol, rawQuote);
+    // console.log("Quote:",quote)
+    const currentPrice = new Prisma.Decimal(quote.currentPrice);
+    const quantity = item.quantity;
+    const costBasis = item.avgPrice.mul(quantity);
+    const marketValue = currentPrice.mul(quantity);
+    const unrealizedPL = marketValue.sub(costBasis);
+    const unrealizedPLPercent = costBasis.isZero()
+      ? new Prisma.Decimal(0)
+      : unrealizedPL
+        .div(costBasis)
+        .mul(100);
+
+    result.push({
+      symbol: item.stock.symbol,
+      companyName: item.stock.companyName,
+      logo: item.stock.logo,
+      currency: item.stock.currency,
+
+      quantity: item.quantity,
+
+      avgPrice: item.avgPrice,
+      currentPrice,
+
+      costBasis,
+      marketValue,
+
+      unrealizedPL,
+      unrealizedPLPercent
+    });
+  }
+  return result;
 }

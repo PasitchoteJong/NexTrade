@@ -9,7 +9,8 @@ import {
 import { walletSchema } from "../validations/schema.js"
 
 export async function walletCreate(req, res, next) {
-    //const haveWallet = await getWalletBy('')
+    try{
+        //const haveWallet = await getWalletBy('')
 
     const data = req.user;
     // console.log('wallet_controller',data)
@@ -26,11 +27,15 @@ export async function walletCreate(req, res, next) {
     res.status(201).json({
         message: 'Wallet Created Successfully',
         result: result
-    })
+    });
+    }catch(error){
+        next(error);
+    }
 }
 
 export async function walletDeposit(req, res, next) {
-    const data = req.user;
+    try{
+        const data = req.user;
     // console.log('This data in controller:', data)
 
     const { amount, bookbankId, bankName } = walletSchema.parse(req.body);
@@ -58,11 +63,15 @@ export async function walletDeposit(req, res, next) {
     res.status(200).json({
         message: 'Deposit completed success',
         data: result
-    })
+    });
+    }catch(error){
+        next(error);
+    }
 }
 
 export async function walletWithdraw(req, res, next) {
-    const data = req.user
+    try{
+        const data = req.user
     // console.log('This data in controller', data)
 
     const { amount, bookbankId, bankName } = walletSchema.parse(req.body);
@@ -94,13 +103,17 @@ export async function walletWithdraw(req, res, next) {
     res.status(200).json({
         message: 'Deposit completed success',
         data: result
-    })
+    });
+    }catch(error){
+        next(error);
+    }
 }
 
 
 
 export async function walletById(req, res, next) {
-    const user = req.user;
+    try{
+        const user = req.user;
     const { id } = req.params;
     //console.log('id',id)
 
@@ -118,5 +131,8 @@ export async function walletById(req, res, next) {
             walletId: wallet.id,
             balance: wallet.balance
         }
-    })
+    });
+    }catch(error){
+        next(error);
+    }
 }
