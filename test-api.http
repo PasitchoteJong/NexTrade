@@ -1,5 +1,5 @@
 @Base_url=http://localhost:8801/api
-@token=e5yJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjNkYTA1ZWVjLTI1ZWEtNGQ0NC05ZmQ1LTQ1ODkxYzc2ZGI5MSIsImlhdCI6MTc4Njc5MTE0MCwiZXhwIjoxNzg2ODc3NTQwfQ.iOVL75hvREt3XsZqo1r7BXMtOPYotFV_f1OxzcyzQv0
+@token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjNkYTA1ZWVjLTI1ZWEtNGQ0NC05ZmQ1LTQ1ODkxYzc2ZGI5MSIsImlhdCI6MTc4Njg3ODEyMCwiZXhwIjoxNzg2OTY0NTIwfQ.6S4or0ZFoyycEG8yNfjwqXwPjr53AVIoZvv5bVHh95A
 @walletId=eb500d8d-25bd-499b-a5a3-815050901e6c
 @stockId=9fddcf01-5928-48af-a3a6-065980ed3ba4
 
@@ -50,13 +50,13 @@ Authorization: Bearer {{token}}
 
 ### deposit wallet POST/wallet/deposit
 POST {{Base_url}}/wallet/deposit
-Authorization: Bearer {{token}}
+Authorization: Bearer 
 Content-Type: application/json
 
 {
-    "amount": 150000,
-    "bookbankId":"1234567891",
-    "bankName":"KBANK"
+    "amount": 1000,
+    "bookbankId":"0123456789",
+    "bankName":"kbank"
 }
 
 
@@ -66,8 +66,8 @@ Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
-    "amount": 1000,
-    "bookbankId":"1234567891",
+    "amount": 500,
+    "bookbankId":"0123456789",
     "bankName":"KBANK"
 }
 

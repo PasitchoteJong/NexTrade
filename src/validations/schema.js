@@ -60,10 +60,10 @@ export const walletSchema = z.object({
         .max(1000000, "Invalid deposit amount"),
     bookbankId: z.string()
         .trim()
-        .length(10, "BookbankID invalid must 10 characters"),
-    bankName: z.string()
-        .trim()
-        .min(1, "Bank name is required")
+        .length(10, "BookbankID invalid must 10 characters")
+        .regex(/^\d+$/, "Bookbank ID must contain only numbers"),
+    bankName: z
+        .enum(["SCB","KBANK","KTB","BBL","TTB"], "Invalid BankName")
 }).transform(data => ({
     amount: data.amount,
     bookbankId: data.bookbankId,
