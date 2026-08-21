@@ -8,11 +8,15 @@ import errorMiddleware from './middleware/error.middleware.js';
 import candleRoute from './routes/candle.routes.js';
 import tradeRoute from './routes/trade.routes.js';
 import transacntionRoutes from './routes/transaction.routes.js';
-
+import cors from "cors";
 
 
 const app = express()
 app.use(express.json())
+
+app.use(cors({
+    origin:`${process.env.FRONT_URL}`
+}));
 
 app.use('/api/auth', authRoute)
 app.use('/api/wallet', walletRoute)

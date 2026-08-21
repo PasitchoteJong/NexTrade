@@ -1,6 +1,6 @@
 @Base_url=http://localhost:8801/api
-@token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjNkYTA1ZWVjLTI1ZWEtNGQ0NC05ZmQ1LTQ1ODkxYzc2ZGI5MSIsImlhdCI6MTc4Njg3ODEyMCwiZXhwIjoxNzg2OTY0NTIwfQ.6S4or0ZFoyycEG8yNfjwqXwPjr53AVIoZvv5bVHh95A
-@walletId=eb500d8d-25bd-499b-a5a3-815050901e6c
+@token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjNkYTA1ZWVjLTI1ZWEtNGQ0NC05ZmQ1LTQ1ODkxYzc2ZGI5MSIsImlhdCI6MTc4NzI0NzM3MSwiZXhwIjoxNzg3MzMzNzcxfQ.bGdTzF5v29VLoDP4h0Ivobya-KVLX_Q9Ecn-VPTW_AY
+@walletId=9545bba1-f2bb-48a9-a65f-6921edd60137
 @stockId=9fddcf01-5928-48af-a3a6-065980ed3ba4
 
 
@@ -17,12 +17,12 @@ POST {{Base_url}}/auth/register
 Content-Type: application/json
 
 {
-    "email": "ammy7@mail.com",
+    "email": "ammy9@mail.com",
     "password": "Ab123456",
-    "confirmPassword": "Ab1234567",
+    "confirmPassword": "Ab123456",
     "firstName": "ammy",
     "lastName": "codecamp",
-    "mobile": "0812345679"
+    "mobile": "0812345600"
 }
 
 
@@ -31,7 +31,7 @@ POST {{Base_url}}/auth/login
 Content-Type: application/json
 
 {
-    "email": "ammy@mail.com",
+    "email": "ammy9@mail.com",
     "password": "Ab123456"
 }
 
@@ -55,8 +55,8 @@ Content-Type: application/json
 
 {
     "amount": 1000,
-    "bookbankId":"0123456789",
-    "bankName":"kbank"
+    "bookbankId":"1234567890",
+    "bankName":"KBANK"
 }
 
 
@@ -66,16 +66,19 @@ Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
-    "amount": 500,
-    "bookbankId":"0123456789",
+    "amount": 1000,
+    "bookbankId":"1234567890",
     "bankName":"KBANK"
 }
 
 
-### GET wallet GET/wallet/walletbyid/:id
-GET {{Base_url}}/wallet/walletbyid/{{walletId}}
+### GET wallet GET/wallet/myWallet
+GET {{Base_url}}/wallet/myWallet
 Authorization: Bearer {{token}}
 
+####
+GET {{Base_url}}/wallet/history
+Authorization: Bearer {{token}}
 
 #########################################################
 ### Stock

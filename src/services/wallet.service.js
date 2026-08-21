@@ -41,7 +41,7 @@ export async function createDepositTransition(walletId, depositData) {
         walletId: walletId
       }
     });
-    return {updatedWallet, history};
+    return { updatedWallet, history };
   });
 }
 
@@ -65,8 +65,21 @@ export async function createWithdrawTransition(walletId, withdrawData) {
         walletId: walletId
       }
     });
-    return {updatedWallet, history};
+    return { updatedWallet, history };
   });
 }
 
 
+export async function getWalletHistory(wallet) {
+
+  const history = await prisma.wallethistory.findMany({
+    where: {
+      walletId: wallet.id
+    },
+    orderBy: {
+      createdAt: "desc"
+    }
+  });
+  return history;
+
+}
