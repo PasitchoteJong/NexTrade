@@ -60,6 +60,7 @@ export async function walletDeposit(req, res, next) {
             bookbankId,
             bankName
         })
+        // console.log("Result Backend:", result)
 
         res.status(200).json({
             message: 'Deposit completed success',
@@ -101,6 +102,8 @@ export async function walletWithdraw(req, res, next) {
             bankName
         })
 
+        // console.log("Result Backend:", result)
+        
         res.status(200).json({
             message: 'Withdraw completed success',
             data: result
