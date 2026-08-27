@@ -1,7 +1,7 @@
 @Base_url=http://localhost:8801/api
-@token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjNkYTA1ZWVjLTI1ZWEtNGQ0NC05ZmQ1LTQ1ODkxYzc2ZGI5MSIsImlhdCI6MTc4NzI0NzM3MSwiZXhwIjoxNzg3MzMzNzcxfQ.bGdTzF5v29VLoDP4h0Ivobya-KVLX_Q9Ecn-VPTW_AY
+@token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImUzOWQ1YmJiLTE5NmMtNGY4OC04YWE2LTVkZjRiMzcwYmRmNyIsImlhdCI6MTc4NzgzMDYzMCwiZXhwIjoxNzg3OTE3MDMwfQ.XSuoN__eXZGSBXI8rhUo5pYhY-oyR_grEg0RSdoGC44
 @walletId=9545bba1-f2bb-48a9-a65f-6921edd60137
-@stockId=9fddcf01-5928-48af-a3a6-065980ed3ba4
+@stockId=2754082c-0417-4a9f-b136-cce0cd1fc0b4
 
 
 # ### test_GET /auth/me
@@ -17,7 +17,7 @@ POST {{Base_url}}/auth/register
 Content-Type: application/json
 
 {
-    "email": "ammy10@mail.com",
+    "email": "ammy@mail.com",
     "password": "Ab123456",
     "confirmPassword": "Ab123456",
     "firstName": "ammy",
@@ -31,7 +31,7 @@ POST {{Base_url}}/auth/login
 Content-Type: application/json
 
 {
-    "email": "ammy9@mail.com",
+    "email": "ammy@mail.com",
     "password": "Ab123456"
 }
 
@@ -103,7 +103,7 @@ Authorization: Bearer {{token}}
 
 
 ### Get stocksBySymbol GET/stock/stocks/:symbol
-GET {{Base_url}}/stock/stocks/GOOGL
+GET {{Base_url}}/stock/stocks/AMD
 Authorization: Bearer {{token}}
 
 
@@ -118,11 +118,10 @@ Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
-    "companyName":"Alphabet Inc",
-    "exchange":"NASDAQ",
+    "companyName":"Advanced Micro Devices Inc_ing",
+    "exchange":"NASDAQ NMS - GLOBAL MARKET",
     "currency":"USD",
-    "logo":"",
-    "industry":""
+    "industry":"Semiconductors"
 }
 
 
@@ -140,10 +139,25 @@ GET {{Base_url}}/stock/stocks/import
 Authorization: Bearer {{token}}
 
 
+### POST creat favorites stock      POST/stock/favorite
+POST {{Base_url}}/stock/{{stockId}}/favorite
+Authorization: Bearer {{token}}
+
+
+###Delete delete favorite stock
+DELETE {{Base_url}}/stock/{{stockId}}/favorite
+Authorization: Bearer {{token}}
+
+
+###GET  Get favorite stock
+GET {{Base_url}}/stock/{{stockId}}/favorite
+Authorization: Bearer {{token}}
+
+
 #########################################################
 
 ### market
-### Get market from finnhub     GET/market/quote
+### Get market from finnhub     GET/market/quote/:symbol
 GET {{Base_url}}/market/quote/AAPL
 Authorization: Bearer {{token}}
 
@@ -155,7 +169,7 @@ GET {{Base_url}}/candle/importhistorical/AAPL
 Authorization: Bearer {{token}}
 
 
-###GET candle from  database   GET candle/getcandle/AAPL
+###GET candle from  database   GET/candle/getcandle/AAPL
 GET {{Base_url}}/candle/getcandle/AAPL
 Authorization: Bearer {{token}}
 

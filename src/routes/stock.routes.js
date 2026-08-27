@@ -6,7 +6,10 @@ import {
     stockCreate,
     searchStocks,
     getStockBySymbol,
-    importFinnhub
+    importFinnhub,
+    addFavStock,
+    delFavStock,
+    getFavStock
 } from "../controllers/stock.controller.js"
 
 
@@ -18,5 +21,8 @@ stockRoute.get('/stocks/import', authenticateMiddleware, importFinnhub)
 stockRoute.get('/stocks/:symbol', authenticateMiddleware, getStockBySymbol)
 stockRoute.patch('/stocks/:id', authenticateMiddleware, patchStock)
 stockRoute.patch('/stocks/:id/status', authenticateMiddleware, softDeleteStock)
+stockRoute.post('/:stockId/favorite', authenticateMiddleware, addFavStock)
+stockRoute.delete('/:stockId/favorite', authenticateMiddleware, delFavStock)
+stockRoute.get('/:stockId/favorite', authenticateMiddleware, getFavStock)
 
 export default stockRoute

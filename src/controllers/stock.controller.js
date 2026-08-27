@@ -8,12 +8,15 @@ import {
   updateStockStatusSchema
 } from "../validations/schema.js";
 import {
+  addFavStockService,
+  checkFavStock,
   createStockBySymbol,
   getStockBy,
   getStockByForSwith,
   getstocks,
   importStock,
   patchStockById,
+  removeFavStockService,
   updateStockStatusById
 } from "../services/stock.service.js";
 import { symbol } from "zod";
@@ -202,3 +205,88 @@ export async function importFinnhub(req, res, next) {
   }
 }
 
+export async function addFavStock(req, res, next) {
+  try {
+    const { id: userId } = req.user
+    const { stockId } = req.params;
+    // console.log("StockId: ", stockId)
+    // console.log("userId: ", userId) // id
+    // console.log("user", user) //undefind
+
+    const haveStock = await getStockBy("id", stockId)
+    // console.log("havestock at addFav:", haveStock)
+    if (!haveStock) {
+      return next(createHttpError(400, 'Stock not found'))
+    }
+
+    const haveFav = await checkFavStock(userId, stockId)
+    // console.log("haveFav at add Fav:", haveFav)
+    if (haveFav) {
+      return res.status(200).json({
+        message: "Stock is already in favorites",
+        data: haveFav
+      })
+    }
+    const result = await addFavStockService(userId, stockId)
+    return res.status(201).json({
+      message: "Stock added to favorites",
+      data: result
+    })
+  } catch (error) {
+    next(errror);
+  }
+
+
+}
+
+export async function delFavStock(req, res, next) {
+  try {
+    const { id: userId } = req.user
+    const { stockId } = req.params;
+    // console.log("userId:",userId)
+    // console.log("stockId:",stockId)
+
+    const haveStock = await getStockBy("id", stockId)
+    if (!haveStock) {
+      return next(createHttpError(400, 'Stock not found'))
+    }
+
+    const haveFav = await checkFavStock(userId, stockId)
+    if (!haveFav) {
+      return res.status(200).json({
+        message: "Stock is not in favorites",
+        data: haveFav
+      })
+    }
+    console.log("habefav:", haveFav);
+
+    const result = await removeFavStockService(userId, stockId)
+    return res.status(201).json({
+      message: "Stock removed to favorites",
+      data: result
+    })
+  } catch (error) {
+    next(error);
+  }
+
+
+}
+
+export async function getFavStock(req, res, next) {
+  try {
+    const { id: userId } = req.user
+    const { stockId } = req.params;
+
+    const haveStock = await getStockBy("id", stockId)
+    if (!haveStock) {
+      return next(createHttpError(400, 'Stock not found'))
+    }
+    const result = await checkFavStock(userId, stockId)
+    return res.status(201).json({
+      message: "Get haveFavorite Stock Success",
+      data: result
+    })
+  } catch (error) {
+    next(error)
+  }
+}

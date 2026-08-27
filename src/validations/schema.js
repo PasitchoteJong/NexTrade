@@ -127,9 +127,6 @@ export const stockUpdateSchema = z.object({
     currency: z.string()
         .trim()
         .min(1, "Currency is required"),
-    logo: z.string()
-        .trim()
-        .optional(),
     industry: z.string()
         .trim()
         .optional()

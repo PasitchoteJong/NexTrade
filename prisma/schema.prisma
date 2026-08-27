@@ -7,6 +7,17 @@ datasource db {
   provider = "mysql"
 }
 
+model FavoriteStock {
+  id        String   @id @default(uuid())
+  userId    String
+  stockId   String
+  createdAt DateTime @default(now())
+  stock     Stock    @relation(fields: [stockId], references: [id])
+  user      User     @relation(fields: [userId], references: [id])
+
+  @@unique([userId, stockId])
+}
+
 model Transaction {
   id         String          @id @default(uuid())
   userId     String
@@ -17,8 +28,8 @@ model Transaction {
   totalPrice Decimal         @db.Decimal(15, 2)
   createdAt  DateTime        @default(now())
 
-  user  user  @relation(fields: [userId], references: [id])
-  stock stock @relation(fields: [stockId], references: [id])
+  user  User  @relation(fields: [userId], references: [id])
+  stock Stock @relation(fields: [stockId], references: [id])
 
   @@index([userId])
   @@index([stockId])
@@ -30,20 +41,20 @@ enum TransactionType {
   SELL
 }
 
-model holdingstock {
+model Holdingstock {
   id       String  @id @default(uuid())
   userId   String
   quantity Int
   avgPrice Decimal @db.Decimal(15, 2)
-  user     user    @relation(fields: [userId], references: [id])
-  stock    stock   @relation(fields: [stockId], references: [id])
+  user     User    @relation(fields: [userId], references: [id])
+  stock    Stock   @relation(fields: [stockId], references: [id])
   stockId  String
 
   @@unique([userId, stockId])
-  @@index([userId], map: "holdingstock_userId_fkey")
+  @@index([userId], map: "Holdingstock_userId_fkey")
 }
 
-model orderhistory {
+model Orderhistory {
   id         String              @id @default(uuid())
   orderNo    Int                 @unique(map: "Order_orderNo_key")
   userId     String
@@ -54,31 +65,32 @@ model orderhistory {
   createdAt  DateTime            @default(now()) @db.Timestamp(0)
   stockId    String
 
-  user  user  @relation(fields: [userId], references: [id])
-  stock stock @relation(fields: [stockId], references: [id])
+  user  User  @relation(fields: [userId], references: [id])
+  stock Stock @relation(fields: [stockId], references: [id])
 
   @@index([stockId], map: "Order_stockId_fkey")
   @@index([userId], map: "Order_userId_fkey")
 }
 
-model stock {
-  id             String         @id @default(uuid())
-  symbol         String         @unique(map: "Stock_stockName_key")
+model Stock {
+  id             String          @id @default(uuid())
+  symbol         String          @unique(map: "Stock_stockName_key")
   companyName    String
   exchange       String
   currency       String?
   logo           String?
   industry       String?
-  isActive       Boolean        @default(true)
-  createdAt      DateTime       @default(now())
-  updatedAt      DateTime       @default(now())
-  candles        stockcandle[]
-  orderhistories orderhistory[]
-  holdings       holdingstock[]
+  isActive       Boolean         @default(true)
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @default(now())
+  candles        Stockcandle[]
+  orderhistories Orderhistory[]
+  holdings       Holdingstock[]
   transactions   Transaction[]
+  favoriteStock  FavoriteStock[]
 }
 
-model stockcandle {
+model Stockcandle {
   id        String   @id @default(uuid())
   symbol    String
   open      Decimal  @db.Decimal(15, 2)
@@ -88,13 +100,13 @@ model stockcandle {
   volume    Int?
   timestamp DateTime
   createdAt DateTime @default(now())
-  stock     stock    @relation(fields: [symbol], references: [symbol])
+  stock     Stock    @relation(fields: [symbol], references: [symbol])
 
   @@unique([symbol, timestamp])
   @@index([symbol, timestamp])
 }
 
-model user {
+model User {
   id        String   @id @default(uuid())
   firstName String
   lastName  String
@@ -103,21 +115,22 @@ model user {
   password  String
   createdAt DateTime @default(now()) @db.Timestamp(0)
 
-  wallet       wallet?
-  portfolio    holdingstock[]
-  orders       orderhistory[]
-  transactions Transaction[]
+  wallet         Wallet?
+  portfolio      Holdingstock[]
+  orders         Orderhistory[]
+  transactions   Transaction[]
+  favoriteStocks FavoriteStock[]
 }
 
-model wallet {
+model Wallet {
   id      String          @id @default(uuid())
   userId  String          @unique(map: "Wallet_userId_key")
   balance Decimal         @default(0.00) @db.Decimal(15, 2)
-  user    user            @relation(fields: [userId], references: [id])
-  history wallethistory[]
+  user    User            @relation(fields: [userId], references: [id])
+  history Wallethistory[]
 }
 
-model wallethistory {
+model Wallethistory {
   id         String                 @id @default(uuid())
   walletId   String
   amount     Decimal                @db.Decimal(15, 2)
@@ -125,7 +138,7 @@ model wallethistory {
   bankName   wallethistory_bankName
   createdAt  DateTime               @default(now()) @db.Timestamp(0)
 
-  wallet wallet @relation(fields: [walletId], references: [id])
+  wallet Wallet @relation(fields: [walletId], references: [id])
 
   @@index([walletId], map: "WalletHistory_walletId_fkey")
 }

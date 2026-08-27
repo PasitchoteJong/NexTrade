@@ -36,27 +36,30 @@ export const getstocks = (search) => {
                     { companyName: { contains: search } }//,
                     // { exchange: { contains: search } },
                     // { currency: { contains: search } },
-                    
+
                 ]
             })
         },
         select: {
             symbol: true,
-            companyName: true
+            companyName: true,
+            exchange: true,
+            currency: true,
+            logo: true,
+            industry: true
         }
     })
 }
 
 
 export const patchStockById = (id, value) => {
-    const { companyName, exchange, currency, logo, industry } = value;
+    const { companyName, exchange, currency, industry } = value;
     return prisma.stock.update({
         where: { id },
         data: {
             companyName,
             exchange,
             currency,
-            logo,
             industry,
             isActive: true
         }
@@ -83,8 +86,39 @@ export const importStock = (stockData) => {
             logo: stockData.logo,
             industry: stockData.industry
         },
-        create:{
+        create: {
             ...stockData
+        }
+    })
+}
+
+export const addFavStockService = (userId, stockId) => {
+    return prisma.favoriteStock.create({
+        data: {
+            userId: userId,
+            stockId: stockId
+        }
+    })
+}
+
+export const checkFavStock = (userId, stockId) => {
+    return prisma.favoriteStock.findUnique({
+        where: {
+            userId_stockId: {
+                userId: userId,
+                stockId: stockId
+            }
+        }
+    })
+}
+
+export const removeFavStockService = (userId, stockId) => {
+    return prisma.favoriteStock.delete({
+        where: {
+            userId_stockId: {
+                userId: userId,
+                stockId: stockId
+            }
         }
     })
 }
