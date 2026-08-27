@@ -33,7 +33,7 @@ export default function (err, req, res, next) {
 
         return res.status(400).json({
             error: 'Validation Error',
-            message: err.error?.[0]?.message || 'Invalid input Data'
+            message: err.issue?.[0]?.message || 'Invalid input Data'
         })
     }
 

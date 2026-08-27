@@ -1,6 +1,6 @@
 @Base_url=http://localhost:8801/api
-@token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImUzOWQ1YmJiLTE5NmMtNGY4OC04YWE2LTVkZjRiMzcwYmRmNyIsImlhdCI6MTc4NzgzMDYzMCwiZXhwIjoxNzg3OTE3MDMwfQ.XSuoN__eXZGSBXI8rhUo5pYhY-oyR_grEg0RSdoGC44
-@walletId=9545bba1-f2bb-48a9-a65f-6921edd60137
+@token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImUzOWQ1YmJiLTE5NmMtNGY4OC04YWE2LTVkZjRiMzcwYmRmNyIsImlhdCI6MTc4Nzg1MzU2NCwiZXhwIjoxNzg3OTM5OTY0fQ.f6_77PKlNxyDFrw_zetjb-XiFbkUY0Vw1NjYO0uOq20
+@walletId=b3197c06-f5bf-43d8-981c-8e2ce15fe9ce
 @stockId=2754082c-0417-4a9f-b136-cce0cd1fc0b4
 
 
@@ -50,11 +50,11 @@ Authorization: Bearer {{token}}
 
 ### deposit wallet POST/wallet/deposit
 POST {{Base_url}}/wallet/deposit
-Authorization: Bearer 
+Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
-    "amount": 1000,
+    "amount": 10000,
     "bookbankId":"1234567890",
     "bankName":"KBANK"
 }
@@ -66,7 +66,7 @@ Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
-    "amount": 1000,
+    "amount": 70000,
     "bookbankId":"1234567890",
     "bankName":"KBANK"
 }
@@ -153,6 +153,11 @@ Authorization: Bearer {{token}}
 GET {{Base_url}}/stock/{{stockId}}/favorite
 Authorization: Bearer {{token}}
 
+
+###GET favorite stock all
+
+GET {{Base_url}}/stock/favorite
+Authorization: Bearer {{token}}
 
 #########################################################
 

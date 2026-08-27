@@ -41,6 +41,7 @@ export const getstocks = (search) => {
             })
         },
         select: {
+            id: true,
             symbol: true,
             companyName: true,
             exchange: true,
@@ -119,6 +120,14 @@ export const removeFavStockService = (userId, stockId) => {
                 userId: userId,
                 stockId: stockId
             }
+        }
+    })
+}
+
+export const getFavStockServiceAll = (userId) => {
+    return prisma.favoriteStock.findMany({
+        where: {
+            userId: userId
         }
     })
 }

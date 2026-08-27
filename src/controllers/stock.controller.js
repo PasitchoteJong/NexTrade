@@ -8,6 +8,7 @@ import {
   updateStockStatusSchema
 } from "../validations/schema.js";
 import {
+  getFavStockServiceAll,
   addFavStockService,
   checkFavStock,
   createStockBySymbol,
@@ -284,6 +285,21 @@ export async function getFavStock(req, res, next) {
     const result = await checkFavStock(userId, stockId)
     return res.status(201).json({
       message: "Get haveFavorite Stock Success",
+      data: result
+    })
+  } catch (error) {
+    next(error)
+  }
+}
+
+export async function getFavStockAll(req, res, next) {
+  try {
+    const { id: userId } = req.user
+
+    const result = await getFavStockServiceAll(userId)
+    console.log("GetFavAll :", result)
+    return res.status(201).json({
+      message: "Get Favorite stock Success",
       data: result
     })
   } catch (error) {
