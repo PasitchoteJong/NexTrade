@@ -17,12 +17,12 @@ POST {{Base_url}}/auth/register
 Content-Type: application/json
 
 {
-    "email": "ammy@mail.com",
+    "email": "ammy3@mail.com",
     "password": "Ab123456",
     "confirmPassword": "Ab123456",
     "firstName": "ammy",
     "lastName": "codecamp",
-    "mobile": "0812345610"
+    "mobile": "0812345613"
 }
 
 
